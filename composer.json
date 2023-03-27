@@ -1,0 +1,11 @@
+{
+    "name": "user5/task",
+    "description": "Testing task",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "User5\\Task\\": "src/"
+        }
+    },
+    "require": {}
+}
