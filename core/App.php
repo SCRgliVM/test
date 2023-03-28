@@ -18,12 +18,18 @@ class App
     public Request $request;
 
     /**
+     * @var string Root directory for app files
+     */
+    public static string $ROOT_DIR;
+
+    /**
      * @param mixed $dbConfig Configuration for database
      */
-    public function __construct($dbConfig)
+    public function __construct($dbConfig, $srcPath)
     {
         $this->request = new Request();
         $this->router = new Router($this->request);
+        self::$ROOT_DIR = $srcPath;
     }
 
     /**

@@ -3,6 +3,10 @@
 require_once __DIR__ . '/../vendor/autoload.php';
 
 use core\App;
+use src\controllers\VisitorsController;
+use src\controllers\GenresController;
+use src\controllers\BooksController;
+use src\controllers\BorrowingController;
 
 // Maybe add to .env
 $dbConfig = [
@@ -10,7 +14,7 @@ $dbConfig = [
     'password' => 'test'
 ];
 
-$app = new App($dbConfig);
+$app = new App($dbConfig, dirname(__DIR__)."/src/");
 
 $app->router->get('/', [VisitorsController::class, 'get']);
 $app->router->post('/', [VisitorsController::class, 'put']);

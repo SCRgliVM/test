@@ -66,7 +66,14 @@ class Router
             return 'Stub for 404 page';
         }
 
-        return 'Stub for resolved route';
+        if (!is_array($controllerCallback)){
+            return 'Development error stub';
+        }
+
+        $controller = new $controllerCallback[0];
+        $controllerCallback[0] = $controller;
+        return call_user_func($controllerCallback);
+
     }
 }
 
