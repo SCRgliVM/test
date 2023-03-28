@@ -1,0 +1,27 @@
+version: "3.8"
+
+services:
+  app:
+    build: ./docker
+    image: user5/test
+    ports:
+      - "8080:80"
+    volumes:
+      - ./:/var/www
+    
+
+  db:
+    image: mysql:8
+    ports:
+      - "3037:3306"
+    volumes:
+      - db:/var/lib/mysql
+      - ./docker/config.cnf:/etc/mysql/conf.d/config.cnf
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: test
+      MYSQL_USER: test
+      MYSQL_PASSWORD: test
+
+volumes:
+  db:
