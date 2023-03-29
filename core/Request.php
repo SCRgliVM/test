@@ -30,6 +30,10 @@ class Request
         return $route;
     }
 
+    /**
+     * Get POST body
+     * @return array Associative array with body content
+     */
     public function getBody()
     {
         $payload = [];

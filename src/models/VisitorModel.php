@@ -12,6 +12,10 @@ class VisitorModel extends Model
     public string $email = '';
     public string $phone = '';
 
+    /**
+     * Validation rules for visitor model
+     * @return array Validation rules
+     */
     public function validationRules()
     {
         return [
@@ -22,6 +26,10 @@ class VisitorModel extends Model
         ];
     }
 
+    /**
+     * Get all visitors
+     * @return array 
+     */
     public function getAllVisitors()
     {
         $visitors = [];
@@ -31,7 +39,11 @@ class VisitorModel extends Model
         return $visitors;
     }
 
-    public function createUser()
+    /**
+     * Create a new visitor
+     * @return [type]
+     */
+    public function createVisitor()
     {
         return Database::$DB->pdo
             ->prepare("INSERT INTO visitors (firstname, lastname, email, phone) 

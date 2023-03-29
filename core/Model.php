@@ -2,6 +2,9 @@
 
 namespace core;
 
+/**
+ * Basic class for models
+ */
 class Model
 {
     const RULE_REQUIRED = 'required';
@@ -11,8 +14,15 @@ class Model
     const RULE_YEAR = 'year';
     const RULE_MAX_YEAR = '2023';
 
+    /**
+     * @var array Array of corresponding error messages to each model field
+     */
     public array $validationErrors = [];
 
+    /**
+     * Get error messages map
+     * @return array Error messages
+     */
     public function getErrorMessages()
     {
         return [
@@ -25,33 +35,66 @@ class Model
         ];
     }
 
+    /**
+     * Get error message for validation rule
+     * @param mixed $rule Validation rule to resolve
+     * 
+     * @return string Error message for given validation rule
+     */
     public function getErrorMessage($rule)
     {
         return $this->getErrorMessages()[$rule];
     }
 
+    /**
+     * Add validation error to field by rule
+     * @param string $field Field
+     * @param string $rule Broken validation rule
+     * 
+     * @return void
+     */
     protected function addError(string $field, string $rule)
     {
         $errorMessage = $this->getErrorMessage($rule);
         $this->validationErrors[$field][] = $errorMessage;
     }
 
-    public function hasError($field)
+    /**
+     * Checks if there is at least one validation error for a given field
+     * @param string $field
+     * 
+     * @return bool
+     */
+    public function hasError(string $field)
     {
         return $this->validationErrors[$field] ?? false;
     }
 
+    /**
+     * Get first validation error for a given field
+     * @param mixed $field
+     * 
+     * @return string
+     */
     public function getFirstError($field)
     {
         $errors = $this->validationErrors[$field] ?? [];
         return $errors[0] ?? '';
     }
 
+    /**
+     * Fallback empty validation rules if child class not define own
+     * @return array
+     */
     public function validationRules()
     {
         return [];
     }
 
+    /**
+     * Validate model fields and set validation errors
+     * @return bool True if none of rules were violated
+     */
     public function validate()
     {
         foreach ($this->validationRules() as $field => $rules)
@@ -79,6 +122,12 @@ class Model
         return empty($this->validationErrors);
     }
 
+    /**
+     * Load form fields values as object properties
+     * @param mixed $payload
+     * 
+     * @return void
+     */
     public function load($payload)
     {
         foreach ($payload as $key => $value) {

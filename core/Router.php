@@ -29,7 +29,8 @@ class Router
     private Response $response;
 
     /**
-     * @param Request $request
+     * @param Request $request Request class
+     * @param Response $response Response class
      */
     public function __construct(Request $request, Response $response)
     {

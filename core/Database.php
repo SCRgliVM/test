@@ -2,11 +2,24 @@
 
 namespace core;
 
+/**
+ * Database managment
+ */
 class Database
 {
+    /**
+     * @var \PDO
+     */
     public \PDO $pdo;
+    /**
+     * @var Database
+     */
     public static Database $DB;
 
+    /**
+     * Init database config
+     * @param array $dbConfig Database configurations
+     */
     public function __construct($dbConfig = [])
     {
         $user = $dbConfig['user'] ?? '';
@@ -19,6 +32,12 @@ class Database
         self::$DB = $this;
     }
 
+    /**
+     * Apply all the migrations in /migrations directory
+     * @param mixed $rootDir Dir where /migrations directory take place
+     * 
+     * @return void
+     */
     public function migration($rootDir)
     {
         $this->initMigrationTable();
@@ -54,6 +73,11 @@ class Database
 
     }
 
+    /**
+     * Get migration table or create if doesn't exit. Migration table
+     * has migration history
+     * @return void
+     */
     protected function initMigrationTable()
     {
         $this->pdo->exec("CREATE TABLE IF NOT EXISTS migrations (
@@ -63,6 +87,10 @@ class Database
         )  ENGINE=INNODB;");
     }
 
+    /**
+     * Get all already existed migrations 
+     * @return array Existed migration records
+     */
     protected function getMigrations()
     {
         $PDOstatement = $this->pdo->prepare("SELECT migration FROM migrations");
@@ -71,6 +99,12 @@ class Database
         return $PDOstatement->fetchAll(\PDO::FETCH_COLUMN);
     }
 
+    /**
+     * Save migrations into migration table
+     * @param array $newMigrations New applied migrations
+     * 
+     * @return void
+     */
     protected function saveMigrations(array $newMigrations)
     {
         $str = implode(',', array_map(fn($m) => "('$m')", $newMigrations));
