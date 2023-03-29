@@ -3,6 +3,7 @@
 namespace core;
 
 use core\Request;
+use core\Response;
 
 /**
  * Router class which resolve current route
@@ -20,12 +21,19 @@ class Router
      */
     private Request $request;
 
+
+    /**
+     * @var Response
+     */
+    private Response $response;
+
     /**
      * @param Request $request
      */
-    public function __construct(Request $request)
+    public function __construct(Request $request, Response $response)
     {
         $this->request = $request;
+        $this->response = $response;
     }
 
     /**
@@ -72,7 +80,7 @@ class Router
 
         $controller = new $controllerCallback[0];
         $controllerCallback[0] = $controller;
-        return call_user_func($controllerCallback, $this->request);
+        return call_user_func($controllerCallback, $this->request, $this->response);
 
     }
 }

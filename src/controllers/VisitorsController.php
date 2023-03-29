@@ -3,6 +3,7 @@
 namespace src\controllers;
 use core\Controller;
 use core\Request;
+use core\Response;
 use src\models\VisitorModel;
 
 class VisitorsController extends Controller
@@ -24,13 +25,14 @@ class VisitorsController extends Controller
         ]);
     }
 
-    public function create(Request $request)
+    public function create(Request $request, Response $response)
     {
         $visitorModel = new VisitorModel();
         $visitorModel->load($request->getBody());
         if ($visitorModel->validate() && $visitorModel->createUser())
         {
-            return 'Stub for processing correct POST in VisitorsController::create';
+            $response->redirectTo('/');
+            return;
         }
         return $this->renderView('visitors/create', [
             'visitorModel' => $visitorModel,

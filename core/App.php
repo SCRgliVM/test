@@ -4,6 +4,7 @@ namespace core;
 
 use core\Router;
 use core\Request;
+use core\Response;
 use core\Database;
 
 class App
@@ -19,6 +20,11 @@ class App
     public Request $request;
 
     /**
+     * @var Response
+     */
+    public Response $response;
+
+    /**
      * @var string Root directory for app files
      */
     public static string $ROOT_DIR;
@@ -31,7 +37,8 @@ class App
     public function __construct($dbConfig, $srcPath)
     {
         $this->request = new Request();
-        $this->router = new Router($this->request);
+        $this->response = new Response();
+        $this->router = new Router($this->request, $this->response);
         self::$ROOT_DIR = $srcPath;
 
         self::$DB = new Database($dbConfig);
@@ -46,7 +53,9 @@ class App
         try {
             echo $this->router->resolveRoute();
         } catch (\Exception $exception) {
+            echo '<pre>';
             var_dump($exception);
+            echo '</pre>';
             exit;
         }
     }
