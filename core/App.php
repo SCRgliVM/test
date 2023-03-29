@@ -4,6 +4,7 @@ namespace core;
 
 use core\Router;
 use core\Request;
+use core\Database;
 
 class App
 {
@@ -22,6 +23,8 @@ class App
      */
     public static string $ROOT_DIR;
 
+    public static Database $DB;
+
     /**
      * @param mixed $dbConfig Configuration for database
      */
@@ -30,6 +33,8 @@ class App
         $this->request = new Request();
         $this->router = new Router($this->request);
         self::$ROOT_DIR = $srcPath;
+
+        self::$DB = new Database($dbConfig);
     }
 
     /**

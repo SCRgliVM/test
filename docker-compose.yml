@@ -8,12 +8,14 @@ services:
       - "8080:80"
     volumes:
       - ./:/var/www
+    extra_hosts:
+      - host.docker.internal:host-gateway
     
 
   db:
     image: mysql:8
     ports:
-      - "3037:3306"
+      - "3307:3306"
     volumes:
       - db:/var/lib/mysql
       - ./docker/config.cnf:/etc/mysql/conf.d/config.cnf

@@ -17,8 +17,8 @@
             <tbody>
                 <?php foreach ($visitors as $visitor) : ?>
                     <tr>
-                        <td><?= $visitor['firstName']; ?></td>
-                        <td><?= $visitor['lastName']; ?></td>
+                        <td><?= $visitor['firstname']; ?></td>
+                        <td><?= $visitor['lastname']; ?></td>
                         <td><?= $visitor['email']; ?></td>
                         <td><?= $visitor['phone']; ?></td>
                         <td>

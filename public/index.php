@@ -8,9 +8,9 @@ use src\controllers\GenresController;
 use src\controllers\BooksController;
 use src\controllers\BorrowingController;
 
-// Database configuration
-// Maybe add to .env
+
 $dbConfig = [
+    'dsn' => 'mysql:host=db;port=3306;dbname=test',
     'user' => 'test',
     'password' => 'test'
 ];

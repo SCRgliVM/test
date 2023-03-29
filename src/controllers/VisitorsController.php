@@ -9,23 +9,8 @@ class VisitorsController extends Controller
 {
     public function index()
     {
-        // Test suits
-        $visitors = [
-            [
-                'id'        => 1,
-                'firstName' => 'Gohd',
-                'lastName'  => 'Grub',
-                'email'     => 'grub@example.com',
-                'phone'     => '0951234455'
-            ],
-            [
-                'id'        => 2,
-                'firstName' => 'Dhodl',
-                'lastName'  => 'Bruhd',
-                'email'     => 'bruhd@example.com',
-                'phone'     => '0991444115'
-            ]
-        ];
+        $visitorModel = new VisitorModel();
+        $visitors = $visitorModel->getAllVisitors();
         return $this->renderView('visitors/index', [
             'visitors' => $visitors,
         ]);
@@ -43,13 +28,13 @@ class VisitorsController extends Controller
     {
         $visitorModel = new VisitorModel();
         $visitorModel->load($request->getBody());
-        if (!$visitorModel->validate())
+        if ($visitorModel->validate() && $visitorModel->createUser())
         {
-            return $this->renderView('visitors/create', [
-                'visitorModel' => $visitorModel,
-            ]);
+            return 'Stub for processing correct POST in VisitorsController::create';
         }
-        return 'Stub for processing correct POST in VisitorsController::create';
+        return $this->renderView('visitors/create', [
+            'visitorModel' => $visitorModel,
+        ]);
     }
 
     public function getEditForm()
