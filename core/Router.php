@@ -4,6 +4,7 @@ namespace core;
 
 use core\Request;
 use core\Response;
+use src\controllers\NotFoundController;
 
 /**
  * Router class which resolve current route
@@ -70,14 +71,11 @@ class Router
         $route  = $this->request->getRoute();
         $controllerCallback = $this->routesMap[$method][$route] ?? false;
 
+        // If unknown route - render 404 page
         if ($controllerCallback === false){
-            return 'Stub for 404 page';
+            $controllerCallback = [NotFoundController::class, 'index'];
         }
-
-        if (!is_array($controllerCallback)){
-            return 'Development error stub';
-        }
-
+        
         $controller = new $controllerCallback[0];
         $controllerCallback[0] = $controller;
         return call_user_func($controllerCallback, $this->request, $this->response);
