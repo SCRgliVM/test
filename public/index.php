@@ -18,10 +18,11 @@ $dbConfig = [
 $app = new App($dbConfig, dirname(__DIR__)."/src/");
 
 $app->router->get('/', [VisitorsController::class, 'index']);
-$app->router->post('/', [VisitorsController::class, 'put']);
-$app->router->get('/visitors/add', [VisitorsController::class, 'add']);
+$app->router->get('/visitors/add', [VisitorsController::class, 'getCreateForm']);
+$app->router->post('/visitors/add', [VisitorsController::class, 'create']);
 
 // TODO:
+//$app->router->get('/visitors/edit/{id}', [VisitorsController::class, 'getEditForm']);
 //$app->router->post('/visitors/edit/{id}', [VisitorsController::class, 'edit']);
 
 $app->router->get('/genres', [GenresController::class, 'get']);

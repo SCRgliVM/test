@@ -1,8 +1,3 @@
-<?php
-// Alias
-$visitors = $params;
-?>
-
 <div class="container">
     <div class="row">
         <h1 class="text-center">Visitors List</h1>

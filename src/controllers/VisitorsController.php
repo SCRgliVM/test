@@ -2,6 +2,8 @@
 
 namespace src\controllers;
 use core\Controller;
+use core\Request;
+use src\models\VisitorModel;
 
 class VisitorsController extends Controller
 {
@@ -24,19 +26,40 @@ class VisitorsController extends Controller
                 'phone'     => '0991444115'
             ]
         ];
-        return $this->renderView('visitors/index', $visitors);
+        return $this->renderView('visitors/index', [
+            'visitors' => $visitors,
+        ]);
     }
-    public function put()
+
+    public function getCreateForm()
     {
-        echo 'Stub for put in VisitorsController';
+        $visitorModel = new VisitorModel();
+        return $this->renderView('visitors/create', [
+            'visitorModel' => $visitorModel,
+        ]);
     }
-    public function add()
+
+    public function create(Request $request)
     {
-        return $this->renderView('visitors/create');
+        $visitorModel = new VisitorModel();
+        $visitorModel->load($request->getBody());
+        if (!$visitorModel->validate())
+        {
+            return $this->renderView('visitors/create', [
+                'visitorModel' => $visitorModel,
+            ]);
+        }
+        return 'Stub for processing correct POST in VisitorsController::create';
     }
+
+    public function getEditForm()
+    {
+        return 'Stub for getEditForm in VisitorsController';
+    }
+
     public function edit()
     {
-        
+        return 'Stub for edit in VisitorsController';
     }
 }
 

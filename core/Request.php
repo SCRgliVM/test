@@ -29,6 +29,16 @@ class Request
         }
         return $route;
     }
+
+    public function getBody()
+    {
+        $payload = [];
+        foreach ($_POST as $key => $value) {
+            $payload[$key] = filter_input(INPUT_POST, $key, FILTER_SANITIZE_SPECIAL_CHARS);
+        }
+        return $payload;
+    }
+
 }
 
 ?>

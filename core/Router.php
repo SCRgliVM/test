@@ -72,7 +72,7 @@ class Router
 
         $controller = new $controllerCallback[0];
         $controllerCallback[0] = $controller;
-        return call_user_func($controllerCallback);
+        return call_user_func($controllerCallback, $this->request);
 
     }
 }
