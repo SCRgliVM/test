@@ -21,9 +21,8 @@ $app->router->get('/', [VisitorsController::class, 'index']);
 $app->router->get('/visitors/add', [VisitorsController::class, 'getCreateForm']);
 $app->router->post('/visitors/add', [VisitorsController::class, 'create']);
 
-// TODO:
-//$app->router->get('/visitors/edit/{id}', [VisitorsController::class, 'getEditForm']);
-//$app->router->post('/visitors/edit/{id}', [VisitorsController::class, 'edit']);
+$app->router->get('/visitors/edit/{id}', [VisitorsController::class, 'getEditForm']);
+$app->router->post('/visitors/edit/{id}', [VisitorsController::class, 'edit']);
 
 $app->router->get('/genres', [GenresController::class, 'get']);
 $app->router->post('/genres', [GenresController::class, 'put']);

@@ -68,20 +68,55 @@ class Router
      */
     public function resolveRoute()
     {
-        $method= $this->request->getRequestMethod();
+        $method = $this->request->getRequestMethod();
         $route  = $this->request->getRoute();
         $controllerCallback = $this->routesMap[$method][$route] ?? false;
 
-        // If unknown route - render 404 page
-        if ($controllerCallback === false){
-            $controllerCallback = [NotFoundController::class, 'index'];
+        if ($controllerCallback === false) {
+
+            $controllerCallback = $this->resolveCallback();
+
+            if ($controllerCallback) {
+                $controller = new $controllerCallback[0][0];
+                $value = $controllerCallback[1];
+                $controllerCallback[1] = $controllerCallback[0][1];
+                $controllerCallback[0] = $controller;
+                return call_user_func($controllerCallback, $this->request, $this->response, $value);
+            } else
+                $controllerCallback = [NotFoundController::class, 'index'];
         }
-        
+
         $controller = new $controllerCallback[0];
         $controllerCallback[0] = $controller;
         return call_user_func($controllerCallback, $this->request, $this->response);
+    }
 
+    /**
+     * Resolve parameterized callback 
+     * @return array|false Array with controller callback and value for it. Or false otherwise
+     */
+    protected function resolveCallback()
+    {
+        $method = $this->request->getRequestMethod();
+        $userRoute  = $this->request->getRoute();
+
+        $userRoute = rtrim($userRoute, '/');
+
+        $routes = $this->routesMap[$method] ?? [];
+
+        foreach ($routes as $route => $controllerCallback) {
+
+            $route = rtrim($route, '/');
+
+            if (!$route) continue;
+
+            $regex = '#^' . preg_replace('/\{(\w+)\}/', '(\w+)', $route) . '$#';
+
+            if (preg_match($regex, $userRoute, $matches)) {
+                $value = $matches[1];
+                return [$controllerCallback, $value];
+            };
+        }
+        return false;
     }
 }
-
-?>

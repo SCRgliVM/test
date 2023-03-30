@@ -12,6 +12,8 @@ class VisitorModel extends Model
     public string $email = '';
     public string $phone = '';
 
+    public string $id = '';
+
     /**
      * Validation rules for visitor model
      * @return array Validation rules
@@ -32,11 +34,7 @@ class VisitorModel extends Model
      */
     public function getAllVisitors()
     {
-        $visitors = [];
-        foreach (Database::$DB->pdo->query('SELECT * FROM visitors') as $row) {
-            $visitors[] = $row;
-        }
-        return $visitors;
+        return Database::$DB->pdo->query('SELECT * FROM visitors')->fetchAll(\PDO::FETCH_ASSOC);
     }
 
     /**
@@ -47,7 +45,30 @@ class VisitorModel extends Model
     {
         return Database::$DB->pdo
             ->prepare("INSERT INTO visitors (firstname, lastname, email, phone) 
-                   VALUES ('$this->firstName', '$this->lastName', '$this->email', '$this->phone')")
+                       VALUES ('$this->firstName', '$this->lastName', '$this->email', '$this->phone')")
             ->execute();
     }
+
+    public function getVisitorById(int $id)
+    {
+        $visitor = Database::$DB->pdo->query("SELECT * FROM visitors WHERE id=$id")->fetchAll(\PDO::FETCH_ASSOC)[0];
+        $this->firstName = $visitor['firstname'];
+        $this->lastName  = $visitor['lastname'];
+        $this->email     = $visitor['email'];
+        $this->phone     = $visitor['phone'];
+        $this->id        = $visitor['id'];
+    }
+
+    public function updateVisitor($id)
+    {
+        return Database::$DB->pdo
+            ->prepare("UPDATE visitors
+                       SET firstname = '$this->firstName',
+                           lastname  = '$this->lastName',
+                           email     = '$this->email',
+                           phone     = '$this->phone'
+                       WHERE id = $id;")
+            ->execute();
+    }
+
 }

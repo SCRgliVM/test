@@ -1,6 +1,7 @@
 <?php
 
 namespace src\controllers;
+
 use core\Controller;
 use core\Request;
 use core\Response;
@@ -47,8 +48,7 @@ class VisitorsController extends Controller
     {
         $visitorModel = new VisitorModel();
         $visitorModel->load($request->getBody());
-        if ($visitorModel->validate() && $visitorModel->createVisitor())
-        {
+        if ($visitorModel->validate() && $visitorModel->createVisitor()) {
             $response->redirectTo('/');
             return '';
         }
@@ -57,15 +57,29 @@ class VisitorsController extends Controller
         ]);
     }
 
-    public function getEditForm()
+    public function getEditForm(Request $request, Response $response, string $id)
     {
-        return 'Stub for getEditForm in VisitorsController';
+        $id = (int)$id;
+        if (!is_int($id)) {
+            return 'Id is not valid in VisitorController::getEditForm';
+        }
+        $visitorModel = new VisitorModel();
+        $visitorModel->getVisitorById($id);
+        return $this->renderView('visitors/edit', [
+            'visitorModel' => $visitorModel,
+        ]);
     }
 
-    public function edit()
+    public function edit(Request $request, Response $response, string $id)
     {
-        return 'Stub for edit in VisitorsController';
+        $visitorModel = new VisitorModel();
+        $visitorModel->load($request->getBody());
+        if ($visitorModel->validate() && $visitorModel->updateVisitor($id)) {
+            $response->redirectTo('/');
+            return '';
+        }
+        return $this->renderView('visitors/edit', [
+            'visitorModel' => $visitorModel,
+        ]);
     }
 }
-
-?>
