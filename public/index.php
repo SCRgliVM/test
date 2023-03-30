@@ -20,9 +20,9 @@ $app = new App($dbConfig, dirname(__DIR__)."/src/");
 $app->router->get('/', [VisitorsController::class, 'index']);
 $app->router->get('/visitors/add', [VisitorsController::class, 'getCreateForm']);
 $app->router->post('/visitors/add', [VisitorsController::class, 'create']);
-
 $app->router->get('/visitors/edit/{id}', [VisitorsController::class, 'getEditForm']);
 $app->router->post('/visitors/edit/{id}', [VisitorsController::class, 'edit']);
+$app->router->get('/visitors/delete/{id}', [VisitorsController::class, 'delete']);
 
 $app->router->get('/genres', [GenresController::class, 'get']);
 $app->router->post('/genres', [GenresController::class, 'put']);

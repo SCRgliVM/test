@@ -49,16 +49,28 @@ class VisitorModel extends Model
             ->execute();
     }
 
+    /**
+     * @param int $id
+     * 
+     * @return [type]
+     */
     public function getVisitorById(int $id)
     {
-        $visitor = Database::$DB->pdo->query("SELECT * FROM visitors WHERE id=$id")->fetchAll(\PDO::FETCH_ASSOC)[0];
+        $visitor = Database::$DB->pdo->query("SELECT * FROM visitors WHERE id=$id")->fetchAll(\PDO::FETCH_ASSOC)[0] ?? false;
+        if (!$visitor) return null;
         $this->firstName = $visitor['firstname'];
         $this->lastName  = $visitor['lastname'];
         $this->email     = $visitor['email'];
         $this->phone     = $visitor['phone'];
         $this->id        = $visitor['id'];
+        return true;
     }
 
+    /**
+     * @param mixed $id
+     * 
+     * @return [type]
+     */
     public function updateVisitor($id)
     {
         return Database::$DB->pdo
@@ -68,6 +80,14 @@ class VisitorModel extends Model
                            email     = '$this->email',
                            phone     = '$this->phone'
                        WHERE id = $id;")
+            ->execute();
+    }
+
+    public function deleteVisitor($id)
+    {
+        return Database::$DB->pdo
+            ->prepare("DELETE FROM visitors
+                       WHERE id = $id")
             ->execute();
     }
 
