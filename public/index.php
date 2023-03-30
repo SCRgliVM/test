@@ -24,11 +24,15 @@ $app->router->get('/visitors/edit/{id}', [VisitorsController::class, 'getEditFor
 $app->router->post('/visitors/edit/{id}', [VisitorsController::class, 'edit']);
 $app->router->get('/visitors/delete/{id}', [VisitorsController::class, 'delete']);
 
-$app->router->get('/genres', [GenresController::class, 'get']);
-$app->router->post('/genres', [GenresController::class, 'put']);
+$app->router->get('/genres', [GenresController::class, 'index']);
+$app->router->get('/genres/add', [GenresController::class, 'getCreateForm']);
+$app->router->post('/genres/add', [GenresController::class, 'create']);
+$app->router->get('/genres/edit/{id}', [GenresController::class, 'getEditForm']);
+$app->router->post('/genres/edit/{id}', [GenresController::class, 'edit']);
+$app->router->get('/genres/delete/{id}', [GenresController::class, 'delete']);
 
-$app->router->get('/books', [BooksController::class, 'get']);
-$app->router->post('/books', [BooksController::class, 'put']);
+$app->router->get('/books', [BooksController::class, 'index']);
+
 
 $app->router->get('/borrowing', [BorrowingController::class, 'get']);
 $app->router->post('/borrowing', [BorrowingController::class, 'put']);

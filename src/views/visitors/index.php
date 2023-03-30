@@ -21,7 +21,7 @@
                         <td><?= $visitor['lastname']; ?></td>
                         <td><?= $visitor['email']; ?></td>
                         <td><?= $visitor['phone']; ?></td>
-                        <td>
+                        <td class="text-end">
                             <a class='btn btn-success' href='/visitors/edit/<?= $visitor['id'];?>'>Edit</a>
                             <a class='btn btn-danger'  href='/visitors/delete/<?= $visitor['id'];?>'>Delete</a>
                         </td>
