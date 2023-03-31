@@ -33,8 +33,12 @@ class GenreModel extends CRUDModel
         return "SELECT * FROM genres WHERE id=$id";
     }
 
-
-
+    protected function getUpdateStatement(int $id) : string
+    {
+        return "UPDATE genres
+                SET name = '$this->name'
+                WHERE id = $id;";
+    }
 
     protected function getColumnToFieldMap() : array
     {
@@ -42,15 +46,6 @@ class GenreModel extends CRUDModel
             'name' => 'name',
             'id'   => 'id',
         ];
-    }
-
-    public function updateGenre($id)
-    {
-        return Database::$DB->pdo
-            ->prepare("UPDATE genres
-                       SET name = '$this->name'
-                       WHERE id = $id;")
-            ->execute();
     }
 
     public function deleteGenre($id)

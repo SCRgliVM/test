@@ -98,7 +98,7 @@ class BooksController extends Controller
 
         $bookModel = new BookModel();
         $bookModel->load($request->getBody());
-        if ($bookModel->validate() && $bookModel->updateBook($id)) {
+        if ($bookModel->validate() && $bookModel->update($id)) {
             $response->redirectTo('/books');
             return '';
         }

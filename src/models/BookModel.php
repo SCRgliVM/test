@@ -54,8 +54,23 @@ class BookModel extends CRUDModel
                 WHERE b.id=$id";
     }
 
+    protected function getUpdateStatement(int $id) : string
+    {
+        $genreModel = new GenreModel();
+        $genre_id = $genreModel->getGenreIdByName($this->genre)['id'] ?? false;
+        if (!$genre_id) {
+            $genreModel->name = $this->genre;
+            $genreModel->create();
+            $genre_id = $genreModel->getGenreIdByName($this->genre)['id'];
+        }
 
-
+        return "UPDATE books
+                SET title        = '$this->title',
+                    author       = '$this->author',
+                    release_year = '$this->release_year',
+                    genre_id     = $genre_id
+                WHERE id = $id;";
+    }
 
     protected function getColumnToFieldMap() : array
     {
@@ -67,26 +82,6 @@ class BookModel extends CRUDModel
             'genre'        => 'genre',
             'id'           => 'id',
         ];
-    }
-
-    public function updateBook($id)
-    {
-        $genreModel = new GenreModel();
-        $genre_id = $genreModel->getGenreIdByName($this->genre)['id'] ?? false;
-        if (!$genre_id) {
-            $genreModel->name = $this->genre;
-            $genreModel->create();
-            $genre_id = $genreModel->getGenreIdByName($this->genre)['id'];
-        }
-
-        return Database::$DB->pdo
-            ->prepare("UPDATE books
-                       SET title        = '$this->title',
-                           author       = '$this->author',
-                           release_year = '$this->release_year',
-                           genre_id     = $genre_id
-                       WHERE id = $id;")
-            ->execute();
     }
 
     public function deleteBook($id)

@@ -81,7 +81,7 @@ class VisitorsController extends Controller
 
         $visitorModel = new VisitorModel();
         $visitorModel->load($request->getBody());
-        if ($visitorModel->validate() && $visitorModel->updateVisitor($id)) {
+        if ($visitorModel->validate() && $visitorModel->update($id)) {
             $response->redirectTo('/');
             return '';
         }

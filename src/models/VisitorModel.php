@@ -31,9 +31,6 @@ class VisitorModel extends CRUDModel
         return "SELECT * FROM visitors WHERE id=$id";
     }
 
-
-
-
     protected function getColumnToFieldMap() : array
     {
         return [
@@ -43,6 +40,16 @@ class VisitorModel extends CRUDModel
             'phone'     => 'phone',
             'id'        => 'id',
         ];
+    }
+
+    protected function getUpdateStatement(int $id) : string
+    {
+        return "UPDATE visitors
+                SET firstname = '$this->firstName',
+                    lastname  = '$this->lastName',
+                    email     = '$this->email',
+                    phone     = '$this->phone'
+                WHERE id = $id;";
     }
 
     /**
@@ -57,23 +64,6 @@ class VisitorModel extends CRUDModel
             'email'     => [self::RULE_REQUIRED, self::RULE_EMAIL],
             'phone'     => [self::RULE_REQUIRED, self::RULE_PHONE],
         ];
-    }
-
-    /**
-     * @param mixed $id
-     * 
-     * @return [type]
-     */
-    public function updateVisitor($id)
-    {
-        return Database::$DB->pdo
-            ->prepare("UPDATE visitors
-                       SET firstname = '$this->firstName',
-                           lastname  = '$this->lastName',
-                           email     = '$this->email',
-                           phone     = '$this->phone'
-                       WHERE id = $id;")
-            ->execute();
     }
 
     public function deleteVisitor($id)

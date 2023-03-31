@@ -66,7 +66,7 @@ class GenresController extends Controller
 
         $genreModel = new GenreModel();
         $genreModel->load($request->getBody());
-        if ($genreModel->validate() && $genreModel->updateGenre($id)) {
+        if ($genreModel->validate() && $genreModel->update($id)) {
             $response->redirectTo('/genres');
             return '';
         }
