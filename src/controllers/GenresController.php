@@ -50,7 +50,7 @@ class GenresController extends Controller
             return (new NotFoundController())->index();
 
         $genreModel = new GenreModel();
-        if (!$genreModel->getGenreById($id))
+        if (!$genreModel->getById($id))
             return (new NotFoundController)->index();
 
         return $this->renderView('genres/edit', [

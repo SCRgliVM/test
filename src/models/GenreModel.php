@@ -28,13 +28,20 @@ class GenreModel extends CRUDModel
                 VALUES ('$this->name')";
     }
 
-    public function getGenreById(int $id)
+    protected function getSelectByIdQuery(int $id) : string
     {
-        $genre = Database::$DB->pdo->query("SELECT * FROM genres WHERE id=$id")->fetchAll(\PDO::FETCH_ASSOC)[0] ?? false;
-        if (!$genre) return null;
-        $this->name = $genre['name'];
-        $this->id   = $genre['id'];
-        return true;
+        return "SELECT * FROM genres WHERE id=$id";
+    }
+
+
+
+
+    protected function getColumnToFieldMap() : array
+    {
+        return [
+            'name' => 'name',
+            'id'   => 'id',
+        ];
     }
 
     public function updateGenre($id)

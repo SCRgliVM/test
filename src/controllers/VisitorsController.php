@@ -65,7 +65,7 @@ class VisitorsController extends Controller
             return (new NotFoundController())->index();
 
         $visitorModel = new VisitorModel();
-        if (!$visitorModel->getVisitorById($id))
+        if (!$visitorModel->getById($id))
             return (new NotFoundController)->index();
 
         return $this->renderView('visitors/edit', [

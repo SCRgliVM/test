@@ -26,6 +26,25 @@ class VisitorModel extends CRUDModel
                 VALUES ('$this->firstName', '$this->lastName', '$this->email', '$this->phone')";
     }
 
+    protected function getSelectByIdQuery(int $id) : string
+    {
+        return "SELECT * FROM visitors WHERE id=$id";
+    }
+
+
+
+
+    protected function getColumnToFieldMap() : array
+    {
+        return [
+            'firstname' => 'firstName',
+            'lastname'  => 'lastName',
+            'email'     => 'email',
+            'phone'     => 'phone',
+            'id'        => 'id',
+        ];
+    }
+
     /**
      * Validation rules for visitor model
      * @return array Validation rules
@@ -38,23 +57,6 @@ class VisitorModel extends CRUDModel
             'email'     => [self::RULE_REQUIRED, self::RULE_EMAIL],
             'phone'     => [self::RULE_REQUIRED, self::RULE_PHONE],
         ];
-    }
-    
-    /**
-     * @param int $id
-     * 
-     * @return [type]
-     */
-    public function getVisitorById(int $id)
-    {
-        $visitor = Database::$DB->pdo->query("SELECT * FROM visitors WHERE id=$id")->fetchAll(\PDO::FETCH_ASSOC)[0] ?? false;
-        if (!$visitor) return null;
-        $this->firstName = $visitor['firstname'];
-        $this->lastName  = $visitor['lastname'];
-        $this->email     = $visitor['email'];
-        $this->phone     = $visitor['phone'];
-        $this->id        = $visitor['id'];
-        return true;
     }
 
     /**

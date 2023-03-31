@@ -46,24 +46,27 @@ class BookModel extends CRUDModel
                 VALUES ('$this->title', '$this->author', '$this->release_year', $genre_id)";
     }
 
-    public function getBookById(int $id)
+    protected function getSelectByIdQuery(int $id) : string
     {
-        $book = Database::$DB->pdo
-            ->query("SELECT b.*, g.name AS genre
-                     FROM books b
-                     INNER JOIN genres g ON b.genre_id = g.id
-                     WHERE b.id=$id")
-            ->fetchAll(\PDO::FETCH_ASSOC)[0] ?? false;
+        return "SELECT b.*, g.name AS genre
+                FROM books b
+                INNER JOIN genres g ON b.genre_id = g.id
+                WHERE b.id=$id";
+    }
 
-        if (!$book) return null;
 
-        $this->title        = $book['title'];
-        $this->author       = $book['author'];
-        $this->release_year = $book['release_year'];
-        $this->genre        = $book['genre'];
-        $this->id           = $book['id'];
 
-        return true;
+
+    protected function getColumnToFieldMap() : array
+    {
+        return [
+            'title'        => 'title',
+            'author'       => 'author',
+            'email'        => 'email',
+            'release_year' => 'release_year',
+            'genre'        => 'genre',
+            'id'           => 'id',
+        ];
     }
 
     public function updateBook($id)

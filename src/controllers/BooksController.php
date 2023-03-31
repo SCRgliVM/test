@@ -73,7 +73,7 @@ class BooksController extends Controller
             return (new NotFoundController())->index();
 
         $bookModel = new BookModel();
-        if (!$bookModel->getBookById($id))
+        if (!$bookModel->getById($id))
             return (new NotFoundController)->index();
 
         return $this->renderView('books/edit', [
