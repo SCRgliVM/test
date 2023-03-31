@@ -17,16 +17,15 @@ class GenreModel extends CRUDModel
         ];
     }
 
-    protected function getSelectAllQuery(): string {
+    protected function getSelectAllQuery(): string
+    {
         return 'SELECT * FROM genres';
     }
 
-    public function createGenre()
+    protected function getCreateStatement(): string
     {
-        return Database::$DB->pdo
-            ->prepare("INSERT INTO genres (name) 
-                       VALUES ('$this->name')")
-            ->execute();
+        return "INSERT INTO genres (name) 
+                VALUES ('$this->name')";
     }
 
     public function getGenreById(int $id)

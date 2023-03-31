@@ -21,7 +21,7 @@
                         <td><?= $book['author']; ?></td>
                         <td><?= $book['release_year']; ?></td>
                         <td><?= $book['genre_name']; ?></td>
-                        <td>
+                        <td class="text-end">
                             <a class='btn btn-success' href='/books/edit/<?= $book['id'];?>'>Edit</a>
                             <a class='btn btn-danger'  href='/books/delete/<?= $book['id'];?>'>Delete</a>
                         </td>

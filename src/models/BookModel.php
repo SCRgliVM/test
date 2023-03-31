@@ -32,20 +32,18 @@ class BookModel extends CRUDModel
                 INNER JOIN genres g ON b.genre_id = g.id';
     }
 
-    public function createBook()
+    protected function getCreateStatement(): string
     {
         $genreModel = new GenreModel();
         $genre_id = $genreModel->getGenreIdByName($this->genre)['id'] ?? false;
         if (!$genre_id) {
             $genreModel->name = $this->genre;
-            $genreModel->createGenre();
+            $genreModel->create();
             $genre_id = $genreModel->getGenreIdByName($this->genre)['id'];
         }
-
-        return Database::$DB->pdo
-            ->prepare("INSERT INTO books (title, author, release_year, genre_id) 
-                       VALUES ('$this->title', '$this->author', '$this->release_year', $genre_id)")
-            ->execute();
+        
+        return "INSERT INTO books (title, author, release_year, genre_id) 
+                VALUES ('$this->title', '$this->author', '$this->release_year', $genre_id)";
     }
 
     public function getBookById(int $id)
@@ -74,7 +72,7 @@ class BookModel extends CRUDModel
         $genre_id = $genreModel->getGenreIdByName($this->genre)['id'] ?? false;
         if (!$genre_id) {
             $genreModel->name = $this->genre;
-            $genreModel->createGenre();
+            $genreModel->create();
             $genre_id = $genreModel->getGenreIdByName($this->genre)['id'];
         }
 

@@ -49,7 +49,7 @@ class VisitorsController extends Controller
     {
         $visitorModel = new VisitorModel();
         $visitorModel->load($request->getBody());
-        if ($visitorModel->validate() && $visitorModel->createVisitor()) {
+        if ($visitorModel->validate() && $visitorModel->create()) {
             $response->redirectTo('/');
             return '';
         }

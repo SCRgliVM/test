@@ -34,7 +34,7 @@ class GenresController extends Controller
     {
         $genreModel = new GenreModel();
         $genreModel->load($request->getBody());
-        if ($genreModel->validate() && $genreModel->createGenre()) {
+        if ($genreModel->validate() && $genreModel->create()) {
             $response->redirectTo('/genres');
             return '';
         }

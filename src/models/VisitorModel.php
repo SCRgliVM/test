@@ -15,8 +15,15 @@ class VisitorModel extends CRUDModel
 
     public string $id = '';
 
-    protected function getSelectAllQuery(): string {
+    protected function getSelectAllQuery(): string 
+    {
         return 'SELECT * FROM visitors';
+    }
+
+    protected function getCreateStatement(): string
+    {
+        return "INSERT INTO visitors (firstname, lastname, email, phone) 
+                VALUES ('$this->firstName', '$this->lastName', '$this->email', '$this->phone')";
     }
 
     /**
@@ -32,19 +39,7 @@ class VisitorModel extends CRUDModel
             'phone'     => [self::RULE_REQUIRED, self::RULE_PHONE],
         ];
     }
-
-    /**
-     * Create a new visitor
-     * @return [type]
-     */
-    public function createVisitor()
-    {
-        return Database::$DB->pdo
-            ->prepare("INSERT INTO visitors (firstname, lastname, email, phone) 
-                       VALUES ('$this->firstName', '$this->lastName', '$this->email', '$this->phone')")
-            ->execute();
-    }
-
+    
     /**
      * @param int $id
      * 

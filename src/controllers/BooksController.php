@@ -49,7 +49,7 @@ class BooksController extends Controller
         $bookModel = new BookModel();
         $bookModel->load($request->getBody());
 
-        if ($bookModel->validate() && $bookModel->createBook()) {
+        if ($bookModel->validate() && $bookModel->create()) {
             $response->redirectTo('/books');
             return '';
         }

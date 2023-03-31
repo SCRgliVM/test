@@ -8,7 +8,8 @@ abstract class CRUDModel extends Model
 {
     protected string $sqlGetAll = '';
 
-    abstract protected function getSelectAllQuery() : string;
+    abstract protected function getSelectAllQuery()  : string;
+    abstract protected function getCreateStatement() : string;
 
     public function getAll()
     {
@@ -17,7 +18,12 @@ abstract class CRUDModel extends Model
             ->fetchAll(\PDO::FETCH_ASSOC);
     }
 
-    
+    public function create()
+    {
+        return Database::$DB->pdo
+            ->prepare($this->getCreateStatement())
+            ->execute();
+    }
 
 }
 
