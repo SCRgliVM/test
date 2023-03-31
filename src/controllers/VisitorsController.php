@@ -15,7 +15,7 @@ class VisitorsController extends Controller
 {
     /**
      * Rendex visitors list
-     * @return string
+     * @return string Render content
      */
     public function index()
     {
@@ -28,7 +28,7 @@ class VisitorsController extends Controller
 
     /**
      * Render form for creating new visitor
-     * @return [type]
+     * @return string Render Content
      */
     public function getCreateForm()
     {
@@ -39,11 +39,12 @@ class VisitorsController extends Controller
     }
 
     /**
-     * Add new visitor
+     * Try to add new visitor. If exist validation
+     * errors then re-render creation form wih warnings
      * @param Request $request
      * @param Response $response
      * 
-     * @return string
+     * @return string Render content
      */
     public function create(Request $request, Response $response)
     {
@@ -58,6 +59,14 @@ class VisitorsController extends Controller
         ]);
     }
 
+    /**
+     * Get editing form for visitor
+     * @param Request $request
+     * @param Response $response
+     * @param string $id id of the visitor being edited
+     * 
+     * @return string Render content
+     */
     public function getEditForm(Request $request, Response $response, string $id)
     {
         $id = (int)$id;
@@ -73,6 +82,15 @@ class VisitorsController extends Controller
         ]);
     }
 
+    /**
+     * Try to edit visitor. If exist validation
+     * errors then re-render creation form wih warnings
+     * @param Request $request
+     * @param Response $response
+     * @param string $id id of the visitor being edited
+     * 
+     * @return string Render content
+     */
     public function edit(Request $request, Response $response, string $id)
     {
         $id = (int)$id;
@@ -91,6 +109,14 @@ class VisitorsController extends Controller
         ]);
     }
 
+    /**
+     * Delete visitor
+     * @param Request $request
+     * @param Response $response
+     * @param string $id id of the visitor being edited
+     * 
+     * @return string Render content
+     */
     public function delete(Request $request, Response $response, string $id)
     {
         $id = (int)$id;

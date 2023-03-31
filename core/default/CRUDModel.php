@@ -8,14 +8,48 @@ abstract class CRUDModel extends Model
 {
     protected string $sqlGetAll = '';
 
+    /**
+     * Model's select all query
+     * @return string
+     */
     abstract protected function getSelectAllQuery()   : string;
+    /**
+     * Model's create statement
+     * @return string
+     */
     abstract protected function getCreateStatement()  : string;
+    /**
+     * Model's select by id query
+     * @param int $id
+     * 
+     * @return string
+     */
     abstract protected function getSelectByIdQuery(int $id)  : string;
+    /**
+     * Model's update statement
+     * @param int $id
+     * 
+     * @return string
+     */
     abstract protected function getUpdateStatement(int $id)  : string;
+    /**
+     * Model's delete statement
+     * @param int $id
+     * 
+     * @return string
+     */
     abstract protected function getDeleteStatement(int $id)  : string;
 
+    /**
+     * Database column name -> Field name mapping
+     * @return array
+     */
     abstract protected function getColumnToFieldMap() : array;
 
+    /**
+     * Get all model's entries
+     * @return [type]
+     */
     public function getAll()
     {
         return Database::$DB->pdo
@@ -23,6 +57,10 @@ abstract class CRUDModel extends Model
             ->fetchAll(\PDO::FETCH_ASSOC);
     }
 
+    /**
+     * Create model entry
+     * @return [type]
+     */
     public function create()
     {
         return Database::$DB->pdo
@@ -30,6 +68,12 @@ abstract class CRUDModel extends Model
             ->execute();
     }
 
+    /**
+     * Get model's columns tp corresponding fields
+     * @param int $id
+     * 
+     * @return bool
+     */
     public function getById(int $id) : bool | null
     {
         $column = Database::$DB->pdo
@@ -49,6 +93,12 @@ abstract class CRUDModel extends Model
         return true;
     }
 
+    /**
+     * Update model's entry
+     * @param int $id
+     * 
+     * @return [type]
+     */
     public function update(int $id)
     {
         return Database::$DB->pdo
@@ -56,6 +106,12 @@ abstract class CRUDModel extends Model
             ->execute();
     }
 
+    /**
+     * Delete model's entry
+     * @param int $id
+     * 
+     * @return [type]
+     */
     public function delete(int $id)
     {
         return Database::$DB->pdo

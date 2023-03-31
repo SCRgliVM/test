@@ -58,11 +58,6 @@ class VisitorModel extends CRUDModel
                 WHERE id = $id";
     }
 
-
-    /**
-     * Validation rules for visitor model
-     * @return array Validation rules
-     */
     public function validationRules()
     {
         return [
@@ -72,5 +67,5 @@ class VisitorModel extends CRUDModel
             'phone'     => [self::RULE_REQUIRED, self::RULE_PHONE],
         ];
     }
-    
+
 }

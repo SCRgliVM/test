@@ -13,6 +13,10 @@ use src\models\GenreModel;
  */
 class GenresController extends Controller
 {
+    /**
+     * Index page
+     * @return string Render content
+     */
     public function index()
     {
         $genreModel = new GenreModel();
@@ -22,6 +26,10 @@ class GenresController extends Controller
         ]);
     }
     
+    /**
+     * Get creating form for genre
+     * @return string Render content
+     */
     public function getCreateForm()
     {
         $genreModel = new GenreModel();
@@ -30,6 +38,14 @@ class GenresController extends Controller
         ]);
     }
 
+    /**
+     * Try to create genre. If exist validation
+     * errors then re-render creation form wih warnings
+     * @param Request $request
+     * @param Response $response
+     * 
+     * @return string Render content
+     */
     public function create(Request $request, Response $response)
     {
         $genreModel = new GenreModel();
@@ -43,6 +59,14 @@ class GenresController extends Controller
         ]);
     }
 
+    /**
+     * Get editing form for genre
+     * @param Request $request
+     * @param Response $response
+     * @param string $id id of the genre being edited
+     * 
+     * @return string Render content
+     */
     public function getEditForm(Request $request, Response $response, string $id)
     {
         $id = (int)$id;
@@ -58,6 +82,15 @@ class GenresController extends Controller
         ]);
     }
 
+    /**
+     * Try to edit genre. If exist validation
+     * errors then re-render creation form wih warnings
+     * @param Request $request
+     * @param Response $response
+     * @param string $id id of the genre being edited
+     * 
+     * @return string Render content
+     */
     public function edit(Request $request, Response $response, string $id)
     {
         $id = (int)$id;
@@ -76,6 +109,14 @@ class GenresController extends Controller
         ]);
     }
 
+    /**
+     * Delete genre
+     * @param Request $request
+     * @param Response $response
+     * @param string $id id of the genre being deleted
+     * 
+     * @return string Render content
+     */
     public function delete(Request $request, Response $response, string $id)
     {
         $id = (int)$id;
