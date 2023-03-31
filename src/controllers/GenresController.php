@@ -8,12 +8,15 @@ use core\Response;
 
 use src\models\GenreModel;
 
+/**
+ * Controler for genre page
+ */
 class GenresController extends Controller
 {
     public function index()
     {
         $genreModel = new GenreModel();
-        $genres = $genreModel->getAllGenres();
+        $genres = $genreModel->getAll();
         return $this->renderView('genres/index', [
             'genres' => $genres
         ]);

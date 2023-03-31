@@ -3,9 +3,10 @@
 namespace src\models;
 
 use core\Model;
+use core\default\CRUDModel;
 use core\Database;
 
-class VisitorModel extends Model
+class VisitorModel extends CRUDModel
 {
     public string $firstName = '';
     public string $lastName = '';
@@ -13,6 +14,10 @@ class VisitorModel extends Model
     public string $phone = '';
 
     public string $id = '';
+
+    protected function getSelectAllQuery(): string {
+        return 'SELECT * FROM visitors';
+    }
 
     /**
      * Validation rules for visitor model
@@ -26,15 +31,6 @@ class VisitorModel extends Model
             'email'     => [self::RULE_REQUIRED, self::RULE_EMAIL],
             'phone'     => [self::RULE_REQUIRED, self::RULE_PHONE],
         ];
-    }
-
-    /**
-     * Get all visitors
-     * @return array 
-     */
-    public function getAllVisitors()
-    {
-        return Database::$DB->pdo->query('SELECT * FROM visitors')->fetchAll(\PDO::FETCH_ASSOC);
     }
 
     /**
@@ -90,5 +86,4 @@ class VisitorModel extends Model
                        WHERE id = $id")
             ->execute();
     }
-
 }

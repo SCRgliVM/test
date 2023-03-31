@@ -2,8 +2,15 @@
 
 use core\Database;
 
+/**
+ * Initial migration
+ */
 class M01_init
 {
+    /**
+     * Apply migration
+     * @return void
+     */
     public function up()
     {
         $VisitorsSQL = "CREATE TABLE IF NOT EXISTS visitors (

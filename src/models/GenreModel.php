@@ -2,10 +2,10 @@
 
 namespace src\models;
 
-use core\Model;
+use core\default\CRUDModel;
 use core\Database;
 
-class GenreModel extends Model
+class GenreModel extends CRUDModel
 {
     public string $name = '';
     public string $id   = '';
@@ -17,9 +17,8 @@ class GenreModel extends Model
         ];
     }
 
-    public function getAllGenres()
-    {
-        return Database::$DB->pdo->query('SELECT * FROM genres')->fetchAll(\PDO::FETCH_ASSOC);
+    protected function getSelectAllQuery(): string {
+        return 'SELECT * FROM genres';
     }
 
     public function createGenre()

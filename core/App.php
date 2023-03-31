@@ -7,6 +7,9 @@ use core\Request;
 use core\Response;
 use core\Database;
 
+/**
+ * Core app class
+ */
 class App
 {
     /**

@@ -38,10 +38,6 @@ $app->router->get('/books/edit/{id}', [BooksController::class, 'getEditForm']);
 $app->router->post('/books/edit/{id}', [BooksController::class, 'edit']);
 $app->router->get('/books/delete/{id}', [BooksController::class, 'delete']);
 
-
-$app->router->get('/borrowing', [BorrowingController::class, 'get']);
-$app->router->post('/borrowing', [BorrowingController::class, 'put']);
-
 $app->render();
 
 ?>

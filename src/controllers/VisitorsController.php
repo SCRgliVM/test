@@ -20,7 +20,7 @@ class VisitorsController extends Controller
     public function index()
     {
         $visitorModel = new VisitorModel();
-        $visitors = $visitorModel->getAllVisitors();
+        $visitors = $visitorModel->getAll();
         return $this->renderView('visitors/index', [
             'visitors' => $visitors,
         ]);

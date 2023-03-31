@@ -3,10 +3,11 @@
 namespace src\models;
 
 use core\Model;
+use core\default\CRUDModel;
 use core\Database;
 use src\models\GenreModel;
 
-class BookModel extends Model
+class BookModel extends CRUDModel
 {
     public string $title = '';
     public string $author = '';
@@ -25,13 +26,10 @@ class BookModel extends Model
         ];
     }
 
-    public function getAllBooks()
-    {
-        return Database::$DB->pdo
-            ->query('SELECT b.*, g.name AS genre_name 
-                     FROM books b
-                     INNER JOIN genres g ON b.genre_id = g.id')
-            ->fetchAll(\PDO::FETCH_ASSOC);
+    protected function getSelectAllQuery(): string {
+        return 'SELECT b.*, g.name AS genre_name 
+                FROM books b
+                INNER JOIN genres g ON b.genre_id = g.id';
     }
 
     public function createBook()
