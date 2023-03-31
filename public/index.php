@@ -32,6 +32,11 @@ $app->router->post('/genres/edit/{id}', [GenresController::class, 'edit']);
 $app->router->get('/genres/delete/{id}', [GenresController::class, 'delete']);
 
 $app->router->get('/books', [BooksController::class, 'index']);
+$app->router->get('/books/add', [BooksController::class, 'getCreateForm']);
+$app->router->post('/books/add', [BooksController::class, 'create']);
+$app->router->get('/books/edit/{id}', [BooksController::class, 'getEditForm']);
+$app->router->post('/books/edit/{id}', [BooksController::class, 'edit']);
+$app->router->get('/books/delete/{id}', [BooksController::class, 'delete']);
 
 
 $app->router->get('/borrowing', [BorrowingController::class, 'get']);

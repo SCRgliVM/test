@@ -111,10 +111,10 @@ class Model
                 if ($rule === self::RULE_PHONE && !preg_match('/^[0-9]{10}$/', $fieldValue)) {
                     $this->addError($field, self::RULE_PHONE);
                 }
-                if ($rule === self::RULE_YEAR && !(is_int($fieldValue) && $fieldValue > 0))  {
+                if ($rule === self::RULE_YEAR && !(is_int((int)$fieldValue) && $fieldValue > 0))  {
                     $this->addError($field, self::RULE_YEAR);
                 }
-                if ($rule === self::RULE_MAX_YEAR && !(is_int($fieldValue) && $fieldValue <= 2023))  {
+                if ($rule === self::RULE_MAX_YEAR && !(is_int((int)$fieldValue) && $fieldValue <= 2023))  {
                     $this->addError($field, self::RULE_MAX_YEAR);
                 }
             }

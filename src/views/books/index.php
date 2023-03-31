@@ -20,7 +20,7 @@
                         <td><?= $book['title']; ?></td>
                         <td><?= $book['author']; ?></td>
                         <td><?= $book['release_year']; ?></td>
-                        <td><?= $book['genre']; ?></td>
+                        <td><?= $book['genre_name']; ?></td>
                         <td>
                             <a class='btn btn-success' href='/books/edit/<?= $book['id'];?>'>Edit</a>
                             <a class='btn btn-danger'  href='/books/delete/<?= $book['id'];?>'>Delete</a>

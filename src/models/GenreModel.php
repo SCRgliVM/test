@@ -56,6 +56,11 @@ class GenreModel extends Model
             ->execute();
     }
 
-}
+    public function getGenreIdByName($name)
+    {
+        return Database::$DB->pdo
+            ->query("SELECT id FROM genres WHERE name='$name'")
+            ->fetch(\PDO::FETCH_ASSOC);
+    }
 
-?>
+}
