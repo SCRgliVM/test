@@ -123,7 +123,7 @@ class BooksController extends Controller
             return (new NotFoundController())->index();
 
         $bookModel = new BookModel();
-        $bookModel->deleteBook($id);
+        $bookModel->delete($id);
         $response->redirectTo('/books');
         return;
     }

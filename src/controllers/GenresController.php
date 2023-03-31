@@ -83,7 +83,7 @@ class GenresController extends Controller
             return (new NotFoundController())->index();
 
         $genreModel = new GenreModel();
-        $genreModel->deleteGenre($id);
+        $genreModel->delete($id);
         $response->redirectTo('/genres');
         return;
     }

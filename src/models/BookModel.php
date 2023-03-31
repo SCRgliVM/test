@@ -72,6 +72,12 @@ class BookModel extends CRUDModel
                 WHERE id = $id;";
     }
 
+    protected function getDeleteStatement(int $id) : string
+    {
+        return "DELETE FROM books
+                WHERE id = $id";
+    }
+
     protected function getColumnToFieldMap() : array
     {
         return [
@@ -82,14 +88,6 @@ class BookModel extends CRUDModel
             'genre'        => 'genre',
             'id'           => 'id',
         ];
-    }
-
-    public function deleteBook($id)
-    {
-        return Database::$DB->pdo
-            ->prepare("DELETE FROM books
-                       WHERE id = $id")
-            ->execute();
     }
 
 }

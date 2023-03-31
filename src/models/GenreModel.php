@@ -40,20 +40,18 @@ class GenreModel extends CRUDModel
                 WHERE id = $id;";
     }
 
+    protected function getDeleteStatement(int $id) : string
+    {
+        return "DELETE FROM genres
+                WHERE id = $id";
+    }
+
     protected function getColumnToFieldMap() : array
     {
         return [
             'name' => 'name',
             'id'   => 'id',
         ];
-    }
-
-    public function deleteGenre($id)
-    {
-        return Database::$DB->pdo
-            ->prepare("DELETE FROM genres
-                       WHERE id = $id")
-            ->execute();
     }
 
     public function getGenreIdByName($name)

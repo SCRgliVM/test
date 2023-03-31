@@ -52,6 +52,13 @@ class VisitorModel extends CRUDModel
                 WHERE id = $id;";
     }
 
+    protected function getDeleteStatement(int $id) : string
+    {
+        return "DELETE FROM visitors
+                WHERE id = $id";
+    }
+
+
     /**
      * Validation rules for visitor model
      * @return array Validation rules
@@ -65,12 +72,5 @@ class VisitorModel extends CRUDModel
             'phone'     => [self::RULE_REQUIRED, self::RULE_PHONE],
         ];
     }
-
-    public function deleteVisitor($id)
-    {
-        return Database::$DB->pdo
-            ->prepare("DELETE FROM visitors
-                       WHERE id = $id")
-            ->execute();
-    }
+    
 }

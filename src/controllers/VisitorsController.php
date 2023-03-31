@@ -98,7 +98,7 @@ class VisitorsController extends Controller
             return (new NotFoundController())->index();
 
         $visitorModel = new VisitorModel();
-        $visitorModel->deleteVisitor($id);
+        $visitorModel->delete($id);
         $response->redirectTo('/');
         return;
     }

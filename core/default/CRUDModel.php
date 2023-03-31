@@ -12,6 +12,7 @@ abstract class CRUDModel extends Model
     abstract protected function getCreateStatement()  : string;
     abstract protected function getSelectByIdQuery(int $id)  : string;
     abstract protected function getUpdateStatement(int $id)  : string;
+    abstract protected function getDeleteStatement(int $id)  : string;
 
     abstract protected function getColumnToFieldMap() : array;
 
@@ -52,6 +53,13 @@ abstract class CRUDModel extends Model
     {
         return Database::$DB->pdo
             ->prepare($this->getUpdateStatement($id))
+            ->execute();
+    }
+
+    public function delete(int $id)
+    {
+        return Database::$DB->pdo
+            ->prepare($this->getDeleteStatement($id))
             ->execute();
     }
 
